@@ -12,6 +12,12 @@ Watch Sarah (buyer) and Henri (seller) negotiate a MacBook Pro sale with real Tr
 
 ## 🎬 Demo Preview
 
+![Demo Recording](file:///Users/rgosselin/.gemini/antigravity/brain/2a3e4957-ef2b-4686-81ef-80c0e760fb76/console_verification_1765206578670.webp)
+
+*Full interactive demo showing agent registration, discovery, negotiation, and HITL approvals*
+
+## 🎬 Demo Preview
+
 ```
 🤖 Sarah: Searching for MacBook Pro 2020...
    Found 3 verified sellers in trust.amorce.io
