@@ -1,18 +1,23 @@
-# Amorce SDK and integrations
-amorce-sdk>=0.2.1
+# Amorce packages from PyPI (production)
 langchain-amorce>=0.1.0
 crewai-amorce>=0.1.0
+amorce-sdk>=0.2.1
 
-# LangChain
-langchain>=0.1.0
-langchain-community>=0.0.1
-langchain-openai>=0.0.1
+# LangChain core - Compatible versions for langchain-amorce
+langchain==0.1.20
+langchain-community==0.0.38
+langchain-core==0.1.52
 
 # CrewAI
 crewai>=0.1.0
 
-# OpenAI
-openai>=1.0.0
+# Claude API (Anthropic)
+anthropic>=0.18.0
+langchain-anthropic>=0.1.0
 
 # Utilities
 python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Optional: for demo recording
+asciinema>=2.3.0

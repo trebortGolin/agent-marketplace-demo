@@ -1,26 +1,50 @@
-# AI Agent Marketplace Demo
-[![GitHub](https://img.shields.io/github/stars/trebortGolin/agent-marketplace-demo?style=social)](https://github.com/trebortGolin/agent-marketplace-demo)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Demo](https://img.shields.io/badge/demo-live-success.svg)](https://github.com/trebortGolin/agent-marketplace-demo)
+# 🤖 Amorce Marketplace Demo
 
-**Two autonomous agents negotiate a $500 MacBook Pro sale**
+> **Production-ready AI agent marketplace demo showcasing secure agent-to-agent transactions**
 
-![Demo](demo.gif)
+Watch Sarah (buyer) and Henri (seller) negotiate a MacBook Pro sale with real Trust Directory integration, cryptographic signatures, and human-in-the-loop approvals.
 
-*Watch Sarah (LangChain) and Henri (CrewAI) negotiate in real-time with cryptographic security*
+[![Trust Directory](https://img.shields.io/badge/Trust%20Directory-trust.amorce.io-blue)](https://trust.amorce.io)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 ---
 
-## 🎯 What This Demo Shows
+## 🎬 Demo Preview
 
-**Sarah (Buyer Agent)** negotiates with **Henri (Seller Agent)** to purchase a used MacBook Pro for $500, demonstrating:
+```
+🤖 Sarah: Searching for MacBook Pro 2020...
+   Found 3 verified sellers in trust.amorce.io
 
-- ✅ **LangChain + CrewAI Integration** - Multi-framework interoperability
-- ✅ **Ed25519 Signatures** - Every message cryptographically signed
-- ✅ **HITL Approvals** - Human oversight for payments and sales
-- ✅ **Trust Directory** - Agent discovery and reputation
-- ✅ **MCP Integration** - Tools for price research and inventory
-- ✅ **A2A Protocol** - Compatible message format
+🤖 Sarah: Selecting Henri (4.8★ rating)
+   ✅ Signature verified
+   Initial offer: $450
+
+🤖 Henri: Evaluating offer...
+   Profit margin: 28% (below threshold)
+   Counter-offer: $500
+
+⏸️  HUMAN APPROVAL REQUIRED
+   Agent: Sarah (Buyer)
+   Action: Approve payment of $500
+   [✓ Approve]
+
+✅ TRANSACTION SUCCESSFUL
+   Receipt #tx_20251208_094740
+   Both signatures verified ✓
+```
+
+---
+
+## ✨ Features
+
+- 🔐 **Production Trust Directory** - Real agent registration at `trust.amorce.io`
+- 🤝 **Multi-Framework** - LangChain (Sarah) + CrewAI (Henri)
+- 🔑 **Cryptographic Security** - Ed25519 signatures on all transactions
+- 👤 **Human-in-the-Loop** - Interactive approval screens for critical actions
+- 🤖 **Claude AI** - Powered by Anthropic's Claude API
+- 📊 **Detailed Reasoning** - Market research, profit analysis, risk assessment
+- 🎯 **A2A Protocol** - Agent-to-agent communication standard
 
 ---
 
@@ -28,289 +52,262 @@
 
 ### Prerequisites
 
+- Python 3.9+
+- Claude API key ([get one here](https://console.anthropic.com/))
+- Trust Directory admin key (from Amorce deployment)
+
+### Installation
+
 ```bash
-# Install dependencies
-pip install amorce-sdk langchain-amorce crewai-amorce openai
+# Clone repository
+git clone https://github.com/YOUR_USERNAME/marketplace-demo.git
+cd marketplace-demo
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies (from PyPI)
+pip install -r requirements.txt
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your API keys
 ```
 
 ### Run the Demo
 
+**Full theatrical demo (recommended):**
 ```bash
-# Option 1: One-command demo
-docker-compose up
-
-# Option 2: Manual run
-python orchestrator/run_demo.py
+python demo_production_full.py
 ```
 
-**Demo runs in ~2 minutes** and shows:
-1. Sarah searches for MacBook prices
-2. Sarah finds Henri in Trust Directory
-3. Sarah makes offer ($450)
-4. Henri counter-offers ($500)
-5. **HITL**: Sarah approves payment
-6. **HITL**: Henri approves sale
-7. Signed receipt generated
+**Simple version:**
+```bash
+python demo_production_simple.py
+```
+
+**Integration tests:**
+```bash
+python test_production_integration.py
+```
+
+---
+
+## 📋 What Happens
+
+### Step-by-Step Workflow
+
+1. **🔧 Initialize Agents**
+   - Sarah (Buyer) registers with Trust Directory
+   - Henri (Seller) registers with Trust Directory
+   - Both receive unique agent IDs
+
+2. **🔍 Market Research**
+   - Sarah analyzes prices across marketplaces
+   - Determines fair market value: $500
+
+3. **🌐 Seller Discovery**
+   - Sarah queries `trust.amorce.io`
+   - Finds Henri (4.8★, 127 sales)
+   - Verifies cryptographic signature
+
+4. **💬 Negotiation**
+   - Sarah offers $450
+   - Henri counter-offers $500
+   - Both offers cryptographically signed
+
+5. **⏸️ HITL Approval #1** - Sarah's Payment
+   ```
+   Agent: Sarah (Buyer)
+   Action: Approve payment of $500
+   Details:
+     • Seller: Henri (4.8★)
+     • Item: MacBook Pro 2020
+     • Price: $500 (Fair ✓)
+     • Fraud Risk: LOW
+   [✓ Approve]
+   ```
+
+6. **⏸️ HITL Approval #2** - Henri's Sale
+   ```
+   Agent: Henri (Seller)
+   Action: Approve sale to Sarah
+   Details:
+     • Buyer: Sarah (4.9★)
+     • Profit: $150 (43% margin)
+     • Risk: LOW
+   [✓ Approve]
+   ```
+
+7. **📝 Transaction Complete**
+   - Signed receipt generated
+   - Both signatures verified
+   - Transaction recorded
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-Sarah (Buyer)              Amorce Protocol              Henri (Seller)
-[LangChain + GPT-4]                                     [CrewAI + GPT-4]
-       │                                                        │
-       ├─► Brave Search (MCP) ────────────────────────►        │
-       │   Research market prices                              │
-       │                                                        │
-       ├─► Trust Directory ────────────────────────────►        │
-       │   Find Henri (4.8★ seller)                           │
-       │                                                        │
-       ├─► Budget Check ───────────────────────────────►        │
-       │   Confirm $500 affordable                             │
-       │                                                        │
-       ├─► Offer: $450 ────────────────────────────────► Inventory DB (MCP)
-       │   💳 HITL: Approve offer                       Check stock/condition
-       │                                                        │
-       │◄──── Counter: $500 ◄────────────────────────────      │
-       │   Market analysis                             Pricing API (MCP)
-       │                                               Calculate margin
-       │                                                        │
-       ├─► Accept $500 ────────────────────────────────► 🔐 HITL: Approve
-       │   💳 HITL: Approve payment                      sale to Sarah
-       │                                                        │
-       │◄──── Signed Receipt ◄───────────────────────────      │
-       │   Ed25519 signature                           Receipt generator
-       └────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────┐
+│     Marketplace Demo (Production)       │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌────────────┐      ┌──────────────┐ │
+│  │   Sarah    │      │    Henri     │ │
+│  │ (LangChain)│      │  (CrewAI)    │ │
+│  │ + Claude   │      │  + Claude    │ │
+│  └─────┬──────┘      └──────┬───────┘ │
+│        │                    │         │
+│        └────────┬───────────┘         │
+│                 │                     │
+└─────────────────┼─────────────────────┘
+                  │
+                  ▼
+        ┌─────────────────────┐
+        │  trust.amorce.io    │
+        │  (Trust Directory)  │
+        │                     │
+        │  • Agent Registry   │
+        │  • Reputation       │
+        │  • Discovery        │
+        └─────────────────────┘
 ```
 
 ---
 
-## 📁 Project Structure
+## 📦 Production Components
+
+All packages installed from PyPI:
+
+- **[langchain-amorce](https://pypi.org/project/langchain-amorce/)** `>=0.1.0` - LangChain integration
+- **[crewai-amorce](https://pypi.org/project/crewai-amorce/)** `>=0.1.0` - CrewAI integration
+- **[amorce-sdk](https://pypi.org/project/amorce-sdk/)** `>=0.2.1` - Core SDK
+- **[anthropic](https://pypi.org/project/anthropic/)** - Claude API
+
+---
+
+## 🔒 Security
+
+**This demo follows security best practices:**
+
+- ✅ No hardcoded secrets
+- ✅ All credentials in `.env` (gitignored)
+- ✅ Comprehensive `.gitignore`
+- ✅ Security documentation ([SECURITY.md](SECURITY.md))
+
+**See [SECURITY.md](SECURITY.md) for complete security guidelines.**
+
+---
+
+## 🎯 Use Cases
+
+This demo showcases how to build:
+
+- **🛒 AI Marketplaces** - Autonomous buying and selling agents
+- **🤝 Agent Negotiation** - Multi-agent price negotiation
+- **🔐 Secure Transactions** - Cryptographically signed agreements
+- **👥 Multi-Framework Integration** - LangChain + CrewAI working together
+- **⚡ Trust-Based Systems** - Reputation and verification
+
+---
+
+## 📁 Repository Structure
 
 ```
 marketplace-demo/
-├── README.md                    # This file
-├── docker-compose.yml           # One-command setup
-├── requirements.txt             # Python dependencies
-├── .env.example                 # Configuration template
-│
 ├── agents/
-│   ├── sarah/                  # Buyer agent (LangChain)
-│   │   ├── buyer_agent.py     # Main agent logic
-│   │   ├── tools/             # Sarah's tools
-│   │   │   ├── market_research.py
-│   │   │   ├── budget_checker.py
-│   │   │   └── fraud_detector.py
-│   │   └── prompts/
-│   │       └── negotiation.txt
-│   │
-│   └── henri/                  # Seller agent (CrewAI)
-│       ├── seller_agent.py    # Main agent logic
-│       ├── tools/             # Henri's tools
-│       │   ├── inventory.py
-│       │   ├── pricing.py
-│       │   └── receipt.py
-│       └── prompts/
-│           └── sales_strategy.txt
-│
-├── mcp_servers/               # MCP tool servers
-│   ├── brave_search/         # Price comparison
-│   └── inventory_db/         # Product catalog
-│
-├── orchestrator/
-│   ├── run_demo.py           # Main demo script
-│   ├── hitl_ui.py            # Terminal approval UI
-│   └── logger.py             # Transaction logging
-│
-└── docs/
-    ├── ARCHITECTURE.md       # Design decisions
-    ├── DEMO_SCRIPT.md        # What happens step-by-step
-    └── screenshots/          # Demo screenshots
-```
-
----
-
-## 🎬 Demo Flow
-
-### 1. Sarah Starts Research
-
-```
-🤖 Sarah: Starting search for MacBook Pro 2020...
-🔍 Searching eBay, Craigslist, marketplace...
-   
-   Market Analysis:
-   • eBay: $480-550
-   • Craigslist: $450-520
-   • Average: $500
-   
-✅ Market research complete
-```
-
-### 2. Sarah Discovers Henri
-
-```
-🤖 Sarah: Discovering verified sellers...
-🔍 Querying Trust Directory...
-
-   Found 3 sellers:
-   1. Henri (agent_abc123) - 4.8★ | 127 sales | $500
-   2. Alice (agent_def456) - 4.2★ | 45 sales | $520
-   3. Bob (agent_ghi789) - 3.9★ | 12 sales | $480
-
-🤖 Sarah: Selecting Henri (best reputation)
-✅ Henri verified in Trust Directory
-```
-
-### 3. HITL Approval (Sarah)
-
-```
-⏸️  ═══════════════════════════════════════════
-    HUMAN APPROVAL REQUIRED
-   ═══════════════════════════════════════════
-   
-   💳 Approve payment of $500?
-   
-   Seller: Henri (agent_abc123)
-   Trust Score: 4.8★ (verified)
-   Item: MacBook Pro 2020, 16GB RAM, 512GB SSD
-   Condition: Excellent
-   Price: $500 (fair market value)
-   Warranty: 30 days
-   
-   [✓ Approve]  [✗ Reject]  [ℹ Request Info]
-   ═══════════════════════════════════════════
-
-👤 User: [Approved]
-✅ Payment approved by user@example.com
-```
-
-### 4. HITL Approval (Henri)
-
-```
-⏸️  ═══════════════════════════════════════════
-    HUMAN APPROVAL REQUIRED
-   ═══════════════════════════════════════════
-   
-   🔐 Approve sale to Sarah?
-   
-   Buyer: Sarah (agent_xyz789)
-   Trust Score: 4.9★ (verified)
-   Item: MacBook Pro 2020 (#INV-12345)
-   Offer: $500 (above minimum $480)
-   Profit: $150 (43% margin)
-   Buyer history: Excellent
-   
-   [✓ Approve]  [💬 Counter]  [✗ Reject]
-   ═══════════════════════════════════════════
-
-👤 Seller: [Approved]
-✅ Sale approved by seller@example.com
-```
-
-### 5. Transaction Complete
-
-```
-✅ TRANSACTION SUCCESSFUL
-
-Receipt #tx_20251207_001
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Buyer:     Sarah (agent_xyz789)
-Seller:    Henri (agent_abc123)
-Item:      MacBook Pro 2020
-Price:     $500
-Warranty:  30 days
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Buyer Signature:  ed25519:abc...
-Seller Signature: ed25519:def...
-Amorce Verified:  ✓
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-⏱️  Total time: 2m 15s
-```
-
----
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-Copy `.env.example` to `.env`:
-
-```bash
-# OpenAI API Key (required)
-OPENAI_API_KEY=sk-...
-
-# Amorce Configuration
-AMORCE_DIRECTORY_URL=https://directory.amorce.io
-AMORCE_ORCHESTRATOR_URL=https://api.amorce.io
-
-# Agent Settings
-SARAH_MAX_BUDGET=500
-HENRI_MIN_PRICE=450
-
-# Demo Options
-DEMO_AUTO_APPROVE=false  # Set true to skip HITL
-DEMO_VERBOSE=true        # Show all agent reasoning
-```
-
----
-
-## 🎥 Recording a Demo Video
-
-```bash
-# Install asciinema for terminal recording
-brew install asciinema
-
-# Record demo
-asciinema rec marketplace_demo.cast
-
-# Run demo
-python orchestrator/run_demo.py
-
-# Stop recording (Ctrl+D)
-
-# Convert to GIF
-agg marketplace_demo.cast marketplace_demo.gif
+│   ├── sarah/
+│   │   └── buyer_agent.py       # LangChain buyer agent
+│   └── henri/
+│       └── seller_agent.py      # CrewAI seller agent
+├── demo_production_full.py      # Full theatrical demo
+├── demo_production_simple.py    # Simplified version
+├── demo_standalone.py           # Mock version (no network)
+├── test_production_integration.py
+├── requirements.txt             # PyPI dependencies
+├── .env.example                 # Environment template
+├── .gitignore                   # Git ignore rules
+├── SECURITY.md                  # Security guidelines
+└── README.md                    # This file
 ```
 
 ---
 
 ## 🧪 Testing
 
+**Integration Tests:**
 ```bash
-# Run all tests
-pytest tests/
+python test_production_integration.py
+```
 
-# Test individual agents
-python -m agents.sarah.buyer_agent --test
-python -m agents.henri.seller_agent --test
+Tests verify:
+- ✅ Trust Directory connectivity
+- ✅ Agent registration
+- ✅ Agent discovery
+- ✅ Specific agent retrieval
 
-# Test MCP servers
-pytest mcp_servers/tests/
+---
+
+## 🌐 Live Demo
+
+Both agents are registered in the production Trust Directory:
+
+- **Trust Directory:** https://trust.amorce.io
+- **API:** https://trust.amorce.io/api/v1/agents
+- **Agent Count:** 139+ verified agents
+
+**Verify registration:**
+```bash
+curl https://trust.amorce.io/api/v1/agents | jq '.count'
 ```
 
 ---
 
 ## 📚 Learn More
 
-- [Amorce Documentation](https://amorce.io/docs)
-- [LangChain-Amorce](../langchain-amorce)
-- [CrewAI-Amorce](../crewai-amorce)
-- [A2A Protocol](https://a2a-protocol.org/)
+- **Documentation:** [amorce.io/docs](https://amorce.io/docs)
+- **Trust Directory:** [trust.amorce.io](https://trust.amorce.io)
+- **Main Repository:** [github.com/amorce/amorce](https://github.com/amorce/amorce)
+- **LangChain Integration:** [github.com/amorce/langchain-amorce](https://github.com/amorce/langchain-amorce)
+- **CrewAI Integration:** [github.com/amorce/crewai-amorce](https://github.com/amorce/crewai-amorce)
 
 ---
 
 ## 🤝 Contributing
 
-Found a bug? Have ideas? Open an issue!
+Contributions welcome! Please feel free to submit a Pull Request.
 
 ---
 
 ## 📄 License
 
-MIT License
+MIT License - see [LICENSE](LICENSE) for details.
 
 ---
 
-**Built with ❤️ by the Amorce team to show the future of agent commerce**
+## 🙏 Acknowledgments
+
+- Built with [Amorce](https://amorce.io) - Secure AI agent infrastructure
+- Powered by [Claude](https://anthropic.com) - Anthropic's AI assistant
+- Integrated with [LangChain](https://langchain.com) and [CrewAI](https://crewai.com)
+
+---
+
+## 📧 Contact
+
+- **Website:** [amorce.io](https://amorce.io)
+- **Email:** team@amorce.io
+- **Twitter:** [@amorce_ai](https://twitter.com/amorce_ai)
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by the Amorce team</p>
+  <p>
+    <a href="https://amorce.io">Website</a> •
+    <a href="https://amorce.io/docs">Docs</a> •
+    <a href="https://trust.amorce.io">Trust Directory</a>
+  </p>
+</div>
