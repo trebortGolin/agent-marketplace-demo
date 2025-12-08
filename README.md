@@ -3,6 +3,12 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Demo](https://img.shields.io/badge/demo-live-success.svg)](https://github.com/trebortGolin/agent-marketplace-demo)
 
+**Two autonomous agents negotiate a $500 MacBook Pro sale**
+
+![Demo](demo.gif)
+
+*Watch Sarah (LangChain) and Henri (CrewAI) negotiate in real-time with cryptographic security*
+
 ---
 
 ## 🎯 What This Demo Shows
