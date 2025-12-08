@@ -269,10 +269,6 @@ def main():
     
     print("\n🎉 Demo complete! Both agents successfully negotiated a")
     print("   secure, verified transaction with human oversight.\n")
-    
-    print("=" * 70)
-    print("  Ready for Hacker News launch! 🚀")
-    print("=" * 70 + "\n")
 
 
 if __name__ == "__main__":
