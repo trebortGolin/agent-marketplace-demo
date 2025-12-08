@@ -1,8 +1,7 @@
 # AI Agent Marketplace Demo
-
-**Two autonomous agents negotiate a $500 MacBook Pro sale**
-
-Demonstrates real-world agent-to-agent commerce with cryptographic security.
+[![GitHub](https://img.shields.io/github/stars/amorce/agent-marketplace-demo?style=social)](https://github.com/amorce/agent-marketplace-demo)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Demo](https://img.shields.io/badge/demo-live-success.svg)](https://github.com/amorce/agent-marketplace-demo)
 
 ---
 
