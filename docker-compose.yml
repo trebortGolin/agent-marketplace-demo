@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  marketplace-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - AMORCE_DIRECTORY_URL=${AMORCE_DIRECTORY_URL:-https://directory.amorce.io}
+      - AMORCE_ORCHESTRATOR_URL=${AMORCE_ORCHESTRATOR_URL:-https://api.amorce.io}
+      - DEMO_AUTO_APPROVE=${DEMO_AUTO_APPROVE:-false}
+      - DEMO_VERBOSE=${DEMO_VERBOSE:-true}
+    volumes:
+      - ./agents:/app/agents
+      - ./orchestrator:/app/orchestrator
+    command: python orchestrator/run_demo.py
+    stdin_open: true
+    tty: true
