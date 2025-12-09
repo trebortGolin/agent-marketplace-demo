@@ -19,3 +19,32 @@ Watch Sarah (buyer) and Henri (seller) negotiate a MacBook Pro sale with real Tr
 ---
 
 ## ✨ Features
+
+### 🔐 Security & Trust
+- **Ed25519 Cryptographic Signatures** - Every transaction is cryptographically signed
+- **Trust Directory Integration** - Real-time agent verification via `trust.amorce.io`
+- **Signature Validation** - Automatic verification of all agent communications
+
+### 👤 Human-in-the-Loop (HITL)
+- **Approval Workflow** - Human verification for critical decisions
+- **Interactive Terminal UI** - Monitor and control agent negotiations
+- **Transaction Transparency** - Full visibility into agent-to-agent conversations
+
+### 🤖 Multi-Agent System
+- **Sarah (Buyer Agent)** - Automated MacBook Pro purchase negotiation
+- **Henri (Seller Agent)** - Marketplace seller with inventory management  
+- **Autonomous Communication** - Agents negotiate pricing and terms independently
+
+### 🏗️ Production-Ready Architecture
+- **FastAPI Backend** - High-performance async API servers
+- **Amorce A2A Protocol** - Industry-standard agent communication
+- **Ngrok Integration** - Easy local development with public endpoints
+- **Comprehensive Logging** - Full audit trail of all transactions
+
+### 📦 Complete Demo Package
+- Automated setup scripts
+- Sample transaction scenarios
+- Detailed documentation
+- Error handling & recovery
+
+---
